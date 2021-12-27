@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Variables - Unsolved</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <h3>Guess a letter :)</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12, info">
+                Your Points:
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="populate" id="winCount">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12, info">
+                Computer Points:
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="populate" id="lossCount">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12, info">
+                Chances Remaining:
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="populate" id="guessesRemaining">
+                    9
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12, info">
+                Letters You Guess:
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="populate" id="guessedLetters">
+                    ...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        var winCount = 1;
+        var lossCount = 0;
+        var guessesRemaining = 9;
+        var guessedLetters = [];
+
+        // set up array for computer to choose from
+        var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        // set up the computer to pick a random indexed value from aray
+        var randomIndex = Math.ceil(Math.random() * alphabet.length);
+        var computerChoice = alphabet[randomIndex];
+
+        console.log(computerChoice);
+        // add a listener for the user to press a key
+        document.onkeyup = function(event) {
+            var userChoice = event.key;
+
+            // reset computer choice if the user loses
+            if (guessesRemaining <= 0) {
+                lossCount++;
+                document.getElementById("lossCount").innerHTML = lossCount++;
+
+                alert("You lost!");
+                guessesRemaining = 9;
+                guessedLetters = [];
+                document.getElementById("guessedLetters").innerHTML = guessedLetters;
+                document.getElementById("guessesRemaining").innerHTML = 9;
+                randomIndex = Math.ceil(Math.random() * alphabet.length);
+                computerChoice = alphabet[randomIndex];
+                console.log(computerChoice);
+            }
+            // compares the randomly selected computer choice and user choice
+            if (computerChoice === userChoice) {
+                console.log("You won!");
+                alert("You won!");
+                document.getElementById("winCount").innerHTML = winCount++;
+                guessedLetters = [];
+                document.getElementById("guessedLetters").innerHTML = guessedLetters;
+                randomIndex = Math.floor(Math.random() * alphabet.length);
+                computerChoice = alphabet[randomIndex];
+                console.log(computerChoice);
+                guessesRemaining = 9;
+                document.getElementById("guessesRemaining").innerHTML = 9;
+            } else {
+                console.log("Guess again!");
+                document.getElementById("guessesRemaining").innerHTML = guessesRemaining--;
+                guessedLetters.push(userChoice);
+                document.getElementById("guessedLetters").innerHTML = guessedLetters;
+            }
+        }
+    </script>
+</body>
+
+</html>
